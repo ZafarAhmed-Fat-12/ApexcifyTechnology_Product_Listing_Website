@@ -268,3 +268,11 @@ body {
     font-size: 0.8rem;
     font-weight: 600;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+}
