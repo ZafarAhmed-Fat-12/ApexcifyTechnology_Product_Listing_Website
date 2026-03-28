@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Listing Website</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1><i class="fas fa-store"></i> Product Marketplace</h1>
+      </header>
+
+      <div class="filters">
+        <select id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+          <option value="books">Books</option>
+          <option value="home">Home & Garden</option>
+        </select>
+
+        <select id="priceFilter">
+          <option value="all">All Prices</option>
+          <option value="0-50">$0 - $50</option>
+          <option value="50-100">$50 - $100</option>
+          <option value="100+">$100+</option>
+        </select>
+
+        <input type="text" id="searchInput" placeholder="Search products..." />
+        <button id="clearFilters" class="btn-clear">
+          <i class="fas fa-times"></i> Clear
+        </button>
+      </div>
+
+      <div class="product-showcase">
+        <div class="product-image">
+          <img id="productImage" src="" alt="Product Image" />
+          <div class="image-overlay">
+            <button class="nav-btn prev-btn" id="prevBtn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="nav-btn next-btn" id="nextBtn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="product-details">
+          <h2 id="productTitle">Product Name</h2>
+          <div class="owner-info">
+            <i class="fas fa-user"></i>
+            <span id="productOwner">Seller Name</span>
+          </div>
+          <div class="price" id="productPrice">$0.00</div>
+
+          <div class="actions">
+            <button class="btn-primary" id="addToCart">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+            <button class="btn-secondary">
+              <i class="fas fa-heart"></i> Add to Wishlist
+            </button>
+          </div>
+
+          <div class="product-stats">
+            <span><i class="fas fa-eye"></i> 1,234 views</span>
+            <span><i class="fas fa-fire"></i> Trending</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+      <div class="pagination">
+        <button id="prevPage" class="page-btn">
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <span id="pageInfo">Page 1 of 5</span>
+        <button id="nextPage" class="page-btn">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
