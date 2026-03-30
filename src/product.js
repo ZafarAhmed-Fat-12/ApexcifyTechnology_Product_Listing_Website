@@ -104,3 +104,4 @@ function setupEventListeners() {
     `;
     document.getElementById('refreshBtn').addEventListener('click', refreshProducts);
 }
+
