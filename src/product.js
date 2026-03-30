@@ -53,3 +53,15 @@ async function fetchProducts() {
             rating: product.rating?.rate || 4.5,
             views: Math.floor(Math.random() * 5000) + 100
         }));
+
+                filteredProducts = [...allProducts];
+        hideLoading();
+        displayProducts();
+        showCurrentProduct();
+        
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        hideLoading();
+        showError('Failed to load products. Please refresh the page.');
+    }
+}
