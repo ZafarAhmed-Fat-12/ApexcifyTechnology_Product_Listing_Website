@@ -74,3 +74,13 @@ function hideLoading() {
     loadingElement.remove();
   }
 }
+
+function showError(message) {
+    productGrid.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>${message}</p>
+            <button onclick="location.reload()" class="btn-primary">Retry</button>
+        </div>
+    `;
+}
