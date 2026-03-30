@@ -75,12 +75,32 @@ function hideLoading() {
   }
 }
 
+
 function showError(message) {
-    productGrid.innerHTML = `
+  productGrid.innerHTML = `
         <div class="error-message">
             <i class="fas fa-exclamation-triangle"></i>
             <p>${message}</p>
             <button onclick="location.reload()" class="btn-primary">Retry</button>
         </div>
     `;
+}
+
+function setupEventListeners() {
+    prevBtn.addEventListener('click', showPreviousProduct);
+    nextBtn.addEventListener('click', showNextProduct);
+    categoryFilter.addEventListener('change', filterProducts);
+    priceFilter.addEventListener('change', filterProducts);
+    searchInput.addEventListener('input', debounce(filterProducts, 300));
+    clearFiltersBtn.addEventListener('click', clearFilters);
+    prevPageBtn.addEventListener('click', previousPage);
+    nextPageBtn.addEventListener('click', nextPage);
+    addToCartBtn.addEventListener('click', addToCart);
+
+        document.querySelector('.header').innerHTML += `
+        <button id="refreshBtn" class="refresh-btn" title="Load Fresh Products">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    `;
+    document.getElementById('refreshBtn').addEventListener('click', refreshProducts);
 }
