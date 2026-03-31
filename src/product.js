@@ -269,5 +269,14 @@ function addToCart() {
   cart.push(product);
   localStorage.setItem("cart", JSON.stringify(cart));
 
-  alert(`${product.title} has been added to your cart!`);
-}
+
+    const originalText = addToCartBtn.innerHTML;
+    addToCartBtn.innerHTML = '<i class="fas fa-check"></i> Added!';
+    addToCartBtn.style.background = '#27ae60';
+    
+    setTimeout(() => {
+        addToCartBtn.innerHTML = originalText;
+        addToCartBtn.style.background = '';
+    }, 2000);
+
+  }
