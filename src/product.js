@@ -105,3 +105,20 @@ function setupEventListeners() {
     document.getElementById('refreshBtn').addEventListener('click', refreshProducts);
 }
 
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+async function refreshProducts() {
+    showLoading();
+    await fetchProducts();
+}
+
