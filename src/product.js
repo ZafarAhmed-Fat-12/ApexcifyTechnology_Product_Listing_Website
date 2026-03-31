@@ -262,3 +262,12 @@ function nextPage() {
     displayProducts();
   }
 }
+
+function addToCart() {
+  const product = filteredProducts[currentProductIndex];
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert(`${product.title} has been added to your cart!`);
+}
