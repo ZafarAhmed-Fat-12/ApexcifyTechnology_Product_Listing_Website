@@ -75,7 +75,6 @@ function hideLoading() {
   }
 }
 
-
 function showError(message) {
   productGrid.innerHTML = `
         <div class="error-message">
@@ -87,38 +86,77 @@ function showError(message) {
 }
 
 function setupEventListeners() {
-    prevBtn.addEventListener('click', showPreviousProduct);
-    nextBtn.addEventListener('click', showNextProduct);
-    categoryFilter.addEventListener('change', filterProducts);
-    priceFilter.addEventListener('change', filterProducts);
-    searchInput.addEventListener('input', debounce(filterProducts, 300));
-    clearFiltersBtn.addEventListener('click', clearFilters);
-    prevPageBtn.addEventListener('click', previousPage);
-    nextPageBtn.addEventListener('click', nextPage);
-    addToCartBtn.addEventListener('click', addToCart);
+  prevBtn.addEventListener("click", showPreviousProduct);
+  nextBtn.addEventListener("click", showNextProduct);
+  categoryFilter.addEventListener("change", filterProducts);
+  priceFilter.addEventListener("change", filterProducts);
+  searchInput.addEventListener("input", debounce(filterProducts, 300));
+  clearFiltersBtn.addEventListener("click", clearFilters);
+  prevPageBtn.addEventListener("click", previousPage);
+  nextPageBtn.addEventListener("click", nextPage);
+  addToCartBtn.addEventListener("click", addToCart);
 
-        document.querySelector('.header').innerHTML += `
+  document.querySelector(".header").innerHTML += `
         <button id="refreshBtn" class="refresh-btn" title="Load Fresh Products">
             <i class="fas fa-sync-alt"></i>
         </button>
     `;
-    document.getElementById('refreshBtn').addEventListener('click', refreshProducts);
+  document
+    .getElementById("refreshBtn")
+    .addEventListener("click", refreshProducts);
 }
 
 function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
     };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 }
 
 async function refreshProducts() {
-    showLoading();
-    await fetchProducts();
+  showLoading();
+  await fetchProducts();
 }
 
+function filterProducts() {
+  const category = categoryFilter.value;
+  const priceRange = priceFilter.value;
+  const searchTerm = searchInput.value.toLowerCase();
+
+  filteredProducts = allProducts.filter((product) => {
+    const matchesCategory = category === "all" || product.category === category;
+
+    let matchesPrice = true;
+    if (priceRange !== "all") {
+      const price = product.price;
+      if (priceRange === "0-50") matchesPrice = price <= 50;
+      else if (priceRange === "50-100")
+        matchesPrice = price > 50 && price <= 100;
+      else if (priceRange === "100+") matchesPrice = price > 100;
+    }
+
+    const matchesSearch =
+      !searchTerm ||
+      product.title.toLowerCase().includes(searchTerm) ||
+      product.owner.toLowerCase().includes(searchTerm);
+
+    return matchesCategory && matchesPrice && matchesSearch;
+  });
+
+  currentPage = 1;
+  currentProductIndex = 0;
+  displayProducts();
+  showCurrentProduct();
+}
+
+function clearFilters() {
+  categoryFilter.value = "all";
+  priceFilter.value = "all";
+  searchInput.value = "";
+  filterProducts();
+}
