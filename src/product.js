@@ -161,30 +161,104 @@ function clearFilters() {
   filterProducts();
 }
 
-
 function displayProducts() {
-    const startIndex = (currentPage - 1) * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
-    const pageProducts = filteredProducts.slice(startIndex, endIndex);
-    
-    productGrid.innerHTML = '';
-    
-    if (pageProducts.length === 0) {
-        productGrid.innerHTML = `
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const pageProducts = filteredProducts.slice(startIndex, endIndex);
+
+  productGrid.innerHTML = "";
+
+  if (pageProducts.length === 0) {
+    productGrid.innerHTML = `
             <div class="no-products">
                 <i class="fas fa-search"></i>
                 <h3>No products found</h3>
                 <p>Try adjusting your filters</p>
             </div>
         `;
-        return;
-    }
-    
-    pageProducts.forEach((product, index) => {
-        const globalIndex = filteredProducts.indexOf(product);
-        const card = createProductCard(product, globalIndex);
-        productGrid.appendChild(card);
-    });
-    
-    updatePagination();
+    return;
+  }
+
+  pageProducts.forEach((product, index) => {
+    const globalIndex = filteredProducts.indexOf(product);
+    const card = createProductCard(product, globalIndex);
+    productGrid.appendChild(card);
+  });
+
+  updatePagination();
+}
+
+function createProductCard(product, index) {
+  const card = document.createElement("div");
+  card.className = "product-card";
+  card.dataset.index = index;
+
+  card.innerHTML = `
+        <div class="category-tag">${product.category}</div>
+        <img src="${product.image}" alt="${product.title}" 
+             onerror="this.src='https://via.placeholder.com/300x220/667eea/ffffff?text=No+Image'">
+        <div class="product-card-content">
+            <h3>${product.title}</h3>
+            <div class="owner">${product.owner}</div>
+            <div class="price">₹${product.price.toLocaleString()}</div>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <span>${product.rating.toFixed(1)}</span>
+            </div>
+        </div>
+    `;
+
+  return card;
+}
+
+function showCurrentProduct() {
+  if (filteredProducts.length === 0) return;
+
+  const product = filteredProducts[currentProductIndex] || filteredProducts[0];
+  productImage.src = product.image;
+  productImage.alt = product.title;
+  productTitle.textContent = product.title;
+  productOwner.textContent = product.owner;
+  productPrice.textContent = `₹${product.price.toLocaleString()}`;
+  prevBtn.style.opacity = currentProductIndex > 0 ? "1" : "0.5";
+  nextBtn.style.opacity =
+    currentProductIndex < filteredProducts.length - 1 ? "1" : "0.5";
+}
+
+function showPreviousProduct() {
+  if (currentProductIndex > 0) {
+    currentProductIndex--;
+    showCurrentProduct();
+  }
+}
+
+function showNextProduct() {
+  if (currentProductIndex < filteredProducts.length - 1) {
+    currentProductIndex++;
+    showCurrentProduct();
+  }
+}
+
+function updatePagination() {
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  prevPageBtn.disabled = currentPage === 1;
+  nextPageBtn.disabled = currentPage === totalPages;
+
+  pageInfo.textContent = `Page ${currentPage} of ${totalPages} (${filteredProducts.length} products)`;
+}
+
+function previousPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    displayProducts();
+  }
+}
+
+function nextPage() {
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    displayProducts();
+  }
 }
