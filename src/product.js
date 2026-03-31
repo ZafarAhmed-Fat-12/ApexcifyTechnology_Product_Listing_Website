@@ -160,3 +160,31 @@ function clearFilters() {
   searchInput.value = "";
   filterProducts();
 }
+
+
+function displayProducts() {
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    const pageProducts = filteredProducts.slice(startIndex, endIndex);
+    
+    productGrid.innerHTML = '';
+    
+    if (pageProducts.length === 0) {
+        productGrid.innerHTML = `
+            <div class="no-products">
+                <i class="fas fa-search"></i>
+                <h3>No products found</h3>
+                <p>Try adjusting your filters</p>
+            </div>
+        `;
+        return;
+    }
+    
+    pageProducts.forEach((product, index) => {
+        const globalIndex = filteredProducts.indexOf(product);
+        const card = createProductCard(product, globalIndex);
+        productGrid.appendChild(card);
+    });
+    
+    updatePagination();
+}
