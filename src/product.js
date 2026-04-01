@@ -310,6 +310,7 @@ function showNextProduct() {
   }
 }
 
+
 function updatePagination() {
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   prevPageBtn.disabled = currentPage === 1;
