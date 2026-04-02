@@ -28,7 +28,10 @@ cd product-marketplace
 # Project Structure
 Product listing app/
 ├── src/
-│   ├── assets/        
+│   ├── assets
+|   |       |--images
+|   |            |-- output1 
+|   |            |-- output
 │   ├── Style.css
 │   └── product.js
 ├── product.html
