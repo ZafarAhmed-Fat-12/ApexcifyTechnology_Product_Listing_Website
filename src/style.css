@@ -245,19 +245,6 @@ body {
   margin-bottom: 8px;
   color: #2c3e50;
 }
-
-.product-card .owner {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-.product-card .price {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #27ae60;
-  margin-bottom: 15px;
-}
 .category-tag {
   position: absolute;
   top: 15px;
@@ -393,18 +380,6 @@ body {
     background: white;
     color: #667eea;
     transform: rotate(180deg);
-}
-
-.error-message, .no-products {
-    text-align: center;
-    padding: 60px 20px;
-    color: #7f8c8d;
-}
-
-.error-message i {
-    font-size: 4rem;
-    color: #ff6b6b;
-    margin-bottom: 20px;
 }
 
 .product-card .rating {
