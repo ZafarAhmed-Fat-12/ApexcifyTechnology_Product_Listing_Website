@@ -41,7 +41,9 @@ async function fetchProducts() {
 
     const response = await fetch(API_URL);
     if (!response.ok) {
-      throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Fetch failed: ${response.status} ${response.statusText}`,
+      );
     }
     const data = await response.json();
 
@@ -311,7 +313,6 @@ function showNextProduct() {
     showCurrentProduct();
   }
 }
-
 
 function updatePagination() {
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
