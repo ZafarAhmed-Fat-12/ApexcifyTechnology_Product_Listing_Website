@@ -1,5 +1,5 @@
 const API_URL =
-  "https://dummyjson.com/products?limit=30&skip=0&select=title,description,price,thumbnail,category,brand,rating";
+  "https://dummyjson.com/products?limit=30&skip=0&select=title,price,thumbnail,category,brand,rating";
 
 let allProducts = [];
 let filteredProducts = [];
@@ -40,6 +40,9 @@ async function fetchProducts() {
     productGrid.innerHTML = loadingElement;
 
     const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
+    }
     const data = await response.json();
 
     allProducts = data.products
@@ -53,7 +56,6 @@ async function fetchProducts() {
         price: Math.round(product.price * 80),
         category: product.category.toLowerCase(),
         image: product.thumbnail.replace("http://", "https://"),
-        description: product.description,
         rating: product.rating || 4.5,
         views: Math.floor(Math.random() * 5000) + 100,
       }))
@@ -244,7 +246,7 @@ function displayProducts() {
   }
 
   pageProducts.forEach((product, index) => {
-    const globalIndex = filteredProducts.indexOf(product);
+    const globalIndex = startIndex + index;
     const card = createProductCard(product, globalIndex);
     productGrid.appendChild(card);
   });
