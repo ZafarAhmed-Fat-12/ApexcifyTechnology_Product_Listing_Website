@@ -19,8 +19,10 @@ Font Awesome: For icons.
 
 # Setup Instructions
 To get a copy of this project up and running on your local machine, follow these simple steps:
+
 # 1 Clone the repository:
 git clone <repository-url>
+
 # 2 Navigate to the project directory:
 cd product-marketplace
 3 Open index.html: Simply open the index.html file in your web browser. All necessary CSS and JavaScript files are linked locally.
